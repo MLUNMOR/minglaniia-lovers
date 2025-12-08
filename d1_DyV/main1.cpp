@@ -2,7 +2,7 @@
 #include "desbloquear.h"
 
 int main() {
-    std::string archivo = "entrada.txt";
+    std::string archivo = "entrada1.txt";
 
     // Llamada a la función principal
     int veces = desbloquear(archivo);
@@ -15,3 +15,4 @@ int main() {
     std::cout << "La contrasenya es " << veces << "\n";
     return 0;
 }
+
