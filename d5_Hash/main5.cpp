@@ -6,7 +6,7 @@
 #include "ingredient_checker.h"
 
 int main() {
-    std::ifstream file("entrada.txt");// Abre el archivo de entrada
+    std::ifstream file("entrada5.txt");// Abre el archivo de entrada
     if (!file) {// Verifica si el archivo se abrió correctamente
         std::cerr << "No se pudo abrir el archivo de entrada.\n";
         return 1;
@@ -40,3 +40,4 @@ int main() {
 
     return 0;
 }
+
