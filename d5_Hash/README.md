@@ -1,1 +1,3 @@
 Para este ejercicio hemos elegido la técnica de hashing para poder almacenar los ingredientes frescos y poder consultar con rapidez si el ingrediente es fresco o no. El problema en vez de una complejidad O(n) tendrá O(1). Para poder resolver el problema se crea una clave "id" que sirve para buscar dentro de la tabla hash.
+
+Para este problema, tampoco hay mucha mejoría respecto de la resolución con fuerza bruta, ya que sería un recorrido lineal, y al no presentar numerosos datos el problema, la diferencia entre O(n) y O(1) es inapreciable, pero por otra parte, hemos aprendido otras formas de implementar una tabla hash.
