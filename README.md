@@ -1,3 +1,3 @@
-Días de entrega: 1, 5
+Días de entrega: 1, 5.
 
-Carpetas d1_dyv, d5_hash
+Carpetas d1_DyV, d5_Hash
