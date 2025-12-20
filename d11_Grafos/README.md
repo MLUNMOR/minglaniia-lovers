@@ -1,0 +1,2 @@
+Hemos decidido usar la técnica de grafos para resolver este problema ya que el enunciado describe dispositivos conectados entre ellos, lo cual forma un grafo dirigido. El objetivo es encontrar todos los caminos posibles entre las cadenas "you" y "out", lo cual se resuelve fácilmente con un algoritmo DFS (Depth first search). 
+Con la resolución de este problema he aprendido el uso de la clase unordered map, que permite inserciones y busquedas con tiempo promedio O(1).
