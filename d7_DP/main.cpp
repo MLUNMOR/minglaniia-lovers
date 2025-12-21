@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -8,7 +9,6 @@ int main()
 {
     std::vector<std::string> input;
     std::ifstream infile("grid.txt");
-
     if(!infile) {
         std::cerr << "No se pudo abrir grid.txt" << std::endl;
         return 1;
@@ -26,9 +26,9 @@ int main()
         return 1;
     }
 
-    TachyonManifold manifold(input);
+       TachyonManifold manifold(input);
     int total_splits = manifold.countSplits();
     std::cout << "Total splits: " << total_splits << std::endl;
-
     return 0;
-}
+
+
