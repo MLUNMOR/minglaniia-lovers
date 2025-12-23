@@ -6,28 +6,26 @@ g++ rectangle_finder.cpp -o rectangle_finder
 
 ¿Por qué usamos una tabla hash?
 
-Usamos una tabla hash porque necesitamos comprobar muchísimas veces si un punto concreto existe en el conjunto.
-Si usáramos un vector o lista, cada búsqueda sería O(n) y la solución sería demasiado lenta.
-
-La tabla hash permite que para cada par de puntos necesitamos comprobar si las otras dos esquinas del rectángulo existen.
-Con una tabla hash:
-
-insertar → O(1)
-
-buscar → O(1)
-
-Reduciendo drásticamente los tiempos haciendo que la solución sea más eficiente.
+Usamos una tabla hash porque es la forma más eficiente de almacenar y consultar puntos dispersos en un plano, 
+evitando estructuras enormes y permitiendo búsquedas rápidas si se necesitan.
 
 ¿Cómo lo hemos solucionado?
 
--Leemos todos los puntos del fichero input.txt y los guardamos en un vector.
+-Leemos todos los puntos del fichero input.txt.  
+    
+-Cada línea contiene una coordenada (x, y) que representa una baldosa roja.
 
--Insertamos cada punto en una tabla hash implementada desde cero para poder buscar coordenadas en O(1).
+-Guardamos todos los puntos en un vector.  
+Esto nos permite recorrerlos fácilmente y comparar todas las parejas posibles.
 
--Recorremos todos los pares de puntos para ver si pueden ser esquinas opuestas de un rectángulo.
+-Insertamos cada punto en una tabla hash.  
+La tabla hash almacena los puntos de forma eficiente y permite búsquedas rápidas si se necesitan.
 
--Para cada par, comprobamos en la tabla hash si existen las otras dos esquinas necesarias.
+-Recorremos todas las parejas de puntos del vector.  
+Cada pareja define dos vértices opuestos de un rectángulo.
 
--Si el rectángulo es válido, calculamos su área y actualizamos el máximo.
+-Si los puntos no están alineados (no comparten x ni y), calculamos el área.  
 
--Al final, mostramos el área del rectángulo más grande encontrado.
+-Actualizamos el área máxima encontrada.
+
+-Mostramos el área del rectángulo más grande.
