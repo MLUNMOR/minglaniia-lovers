@@ -85,7 +85,7 @@ int main() {
             int x2 = points[j].x, y2 = points[j].y;// Coordenadas del segundo punto
 
             // Cálculo del área
-            long long area =(abs(x1 - x2) + 1) *(abs(y1 - y2) + 1);// Se suma 1 ya que la primera columna y fila es 0.
+            long long area =(abs(x1 - x2) + 1) *(abs(y1 - y2) + 1);// Se suma 1 ya que la primera columna y fila es 0
 
             maxArea = max(maxArea, area);// Actualizar área máxima
         }
