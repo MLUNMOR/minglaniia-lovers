@@ -7,7 +7,7 @@ g++ rectangle_finder.cpp -o rectangle_finder
 ¿Por qué usamos una tabla hash?
 
 Usamos una tabla hash porque es la forma más eficiente de almacenar y consultar puntos dispersos en un plano, 
-evitando estructuras enormes y permitiendo búsquedas rápidas si se necesitan.
+evitando estructuras enormes y permitiendo búsquedas rápidas si se necesitan. Además de para verificar si hay puntos repetidos y mantener el vector limpio.
 
 ¿Cómo lo hemos solucionado?
 
