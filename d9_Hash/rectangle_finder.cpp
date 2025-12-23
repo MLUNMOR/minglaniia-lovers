@@ -6,44 +6,44 @@
 
 using namespace std;
 
-// Estructuras
-
+// Punto con coordenadas
 struct Point {
-    int x, y;  // Coordenadas del punto
+    int x, y;
 };
 
+// Nodo para encadenamiento
 struct Node {
-    Point p;   // Punto almacenado en el nodo
-    Node* next; // Puntero al siguiente nodo (encadenamiento en la tabla hash)
+    Point p;
+    Node* next;
 };
 
-// Tabla Hash con encadenamiento
-
+// Tabla hash con encadenamiento
 class HashTable {
 private:
-    int m;                  // Tamaño de la tabla hash
-    vector<Node*> table;    // Vector de punteros a nodos para cada índice
+    int m;                     
+    vector<Node*> table;       
 
-    // Función hash combinando x e y en un entero de 64 bits
+    // Función hash para (x,y)
     int hashFunction(int x, int y) {
-        long long k = ((long long)x << 32) ^ (unsigned int)y; 
-        return (k % m + m) % m;   // Garantiza un índice no negativo
+        long long k = (long long)x * 1000003LL + y;
+        return (k % m + m) % m;
     }
 
 public:
+    // Constructor
     HashTable(int size) : m(size), table(size, nullptr) {}
 
+    // Inserta un punto
     void insert(int x, int y) {
         int idx = hashFunction(x, y);
-        // Inserción al inicio de la lista en el índice correspondiente
         Node* n = new Node{{x, y}, table[idx]};
         table[idx] = n;
     }
 
+    // Busca un punto
     bool find(int x, int y) {
         int idx = hashFunction(x, y);
         Node* cur = table[idx];
-        // Recorremos la lista enlazada buscando el punto
         while (cur) {
             if (cur->p.x == x && cur->p.y == y)
                 return true;
@@ -53,56 +53,47 @@ public:
     }
 };
 
-// Programa principal
-
 int main() {
-    vector<Point> points;
-    ifstream f("input.txt");
+    vector<Point> points; // Lista de puntos
+    ifstream f("input.txt"); // Archivo de entrada
 
-    //Error al abrir el txt
-    if (!f) {
+    if (!f) { // Error al abrir
         cerr << "No se pudo abrir input.txt\n";
         return 1;
     }
 
-    // Lectura robusta línea por línea
+    // Lectura de puntos x,y
     string line;
     while (getline(f, line)) {
         int x, y;
         char comma;
         stringstream ss(line);
-        if (ss >> x >> comma >> y) {
-            points.push_back({x, y});  // Guardamos el punto leído
-        }
+        if (ss >> x >> comma >> y)
+            points.push_back({x, y});
     }
 
-    HashTable H(200003); // Inicializamos tabla hash con tamaño primo grande
+    HashTable H(200003); // Tabla hash
 
-    // Insertamos todos los puntos en la tabla hash
+    // Insertar puntos en la tabla
     for (auto& p : points)
         H.insert(p.x, p.y);
 
-    long long maxArea = 0;
+    long long maxArea = 0; // Área máxima
 
-    // Recorremos todos los pares de puntos para buscar rectángulos
+    // Comparar todas las parejas
     for (int i = 0; i < points.size(); i++) {
         for (int j = i + 1; j < points.size(); j++) {
 
             int x1 = points[i].x, y1 = points[i].y;
             int x2 = points[j].x, y2 = points[j].y;
 
-            if (x1 == x2 || y1 == y2) continue; 
-            // Saltamos puntos que estén alineados vertical u horizontalmente
+            if (x1 == x2 || y1 == y2) continue; // No forman rectángulo
 
-            // Verificamos si existen los otros dos vértices del rectángulo
-            if (H.find(x1, y2) && H.find(x2, y1)) {
-                // Calculamos el área del rectángulo formado
-                long long area = llabs(x1 - x2) * llabs(y1 - y2);
-                maxArea = max(maxArea, area); // Guardamos el área máxima
-            }
+            long long area = abs(x1 - x2) * abs(y1 - y2); // Área
+            maxArea = max(maxArea, area); // Actualizar máximo
         }
     }
 
-    cout << maxArea << endl; // Imprime el área máxima encontrada
+    cout << maxArea << endl; // Mostrar resultado
     return 0;
 }
