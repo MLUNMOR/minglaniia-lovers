@@ -10,46 +10,28 @@
 using namespace std;
 
 // Arista con nombres de nodos tipo string
-struct Arista {
+class Arista {
+private:
     string origen;
     string destino;
+
+public:
+    // Constructor
+    Arista(const string& o, const string& d) : origen(o), destino(d) {}
+
+    // Getters
+    const string& getOrigen() const { return origen; }
+    const string& getDestino() const { return destino; }
+
+    // Setters
+    void setOrigen(const string& o) { origen = o; }
+    void setDestino(const string& d) { destino = d; }
 };
 
-struct Grafo {
+class Grafo {
+private:
     // lista de adyacencia: nodo -> destinos
     unordered_map<string, vector<string>> adj;
-
-    Grafo() = default;
-
-    // Añadir arista dirigida u -> v
-    void agregarArista(const string& u, const string& v) {
-        adj[u].push_back(v);
-        // Asegurar que el destino existe como clave (aunque no tenga salientes)
-        if (!adj.count(v)) adj[v] = {};
-    }
-
-    // Comprobar existencia de una arista u -> v
-    bool existeArista(const string& u, const string& v) const {
-        auto it = adj.find(u);
-        if (it == adj.end()) return false;
-        for (const auto& d : it->second) {
-            if (d == v) return true;
-        }
-        return false;
-    }
-
-    // Imprimir el grafo
-    void imprimir() const {
-        for (const auto& par : adj) {
-            const string& u = par.first;
-            const auto& lista = par.second;
-            cout << u << ": ";
-            for (const auto& v : lista) {
-                cout << "(" << u << " --> " << v << ") ";
-            }
-            cout << "\n";
-        }
-    }
 
     // DFS con backtracking para enumerar caminos simples (sin repetir nodos)
     void dfs(const string& actual,
@@ -81,6 +63,27 @@ struct Grafo {
         camino.pop_back();
     }
 
+public:
+    // Constructor por defecto
+    Grafo() = default;
+
+    // Añadir arista dirigida u -> v
+    void agregarArista(const string& u, const string& v) {
+        adj[u].push_back(v);
+        // Asegurar que el destino existe como clave (aunque no tenga salientes)
+        if (!adj.count(v)) adj[v] = {};
+    }
+
+    // Comprobar existencia de una arista u -> v
+    bool existeArista(const string& u, const string& v) const {
+        auto it = adj.find(u);
+        if (it == adj.end()) return false;
+        for (const auto& d : it->second) {
+            if (d == v) return true;
+        }
+        return false;
+    }
+
     // Interfaz pública: todos los caminos de origen a destino
     vector<vector<string>> caminosNodos(const string& origen, const string& destino) const {
         if (!adj.count(origen)) {
@@ -100,15 +103,15 @@ struct Grafo {
 
     // (Opcional) caminos que comienzan con arista A=(u->v) y terminan con arista B=(x->y)
     vector<vector<string>> caminosEntreAristas(const Arista& A, const Arista& B) const {
-        if (!existeArista(A.origen, A.destino)) {
+        if (!existeArista(A.getOrigen(), A.getDestino())) {
             throw invalid_argument("caminosEntreAristas: la arista A no existe en el grafo");
         }
-        if (!existeArista(B.origen, B.destino)) {
+        if (!existeArista(B.getOrigen(), B.getDestino())) {
             throw invalid_argument("caminosEntreAristas: la arista B no existe en el grafo");
         }
 
         // Caminos de A.destino hasta B.origen
-        auto intermedios = caminosNodos(A.destino, B.origen);
+        auto intermedios = caminosNodos(A.getDestino(), B.getOrigen());
 
         vector<vector<string>> res;
         res.reserve(intermedios.size());
@@ -117,12 +120,25 @@ struct Grafo {
             // Construir [A.origen, (A.destino ... B.origen), B.destino]
             vector<string> completo;
             completo.reserve(mid.size() + 2);
-            completo.push_back(A.origen);
+            completo.push_back(A.getOrigen());
             completo.insert(completo.end(), mid.begin(), mid.end());
-            completo.push_back(B.destino);
+            completo.push_back(B.getDestino());
             res.push_back(move(completo));
         }
         return res;
+    }
+
+    // Imprimir el grafo
+    void imprimir() const {
+        for (const auto& par : adj) {
+            const string& u = par.first;
+            const auto& lista = par.second;
+            cout << u << ": ";
+            for (const auto& v : lista) {
+                cout << "(" << u << " --> " << v << ") ";
+            }
+            cout << "\n";
+        }
     }
 
     // Utilidad: imprimir una lista de caminos
