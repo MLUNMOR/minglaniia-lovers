@@ -62,21 +62,23 @@ int main() {
         return 1;
     }
 
-    // Lectura de puntos x,y
+    HashTable H(200003); // Tabla hash
+
+    // Lectura de puntos x,y evitando duplicados
     string line;
     while (getline(f, line)) {
         int x, y;
         char comma;
         stringstream ss(line);
-        if (ss >> x >> comma >> y)
-            points.push_back({x, y});
+        if (ss >> x >> comma >> y) {
+
+            // Evitar duplicados
+            if (!H.find(x, y)) {
+                H.insert(x, y);
+                points.push_back({x, y});
+            }
+        }
     }
-
-    HashTable H(200003); // Tabla hash
-
-    // Insertar puntos en la tabla
-    for (auto& p : points)
-        H.insert(p.x, p.y);
 
     long long maxArea = 0; // Área máxima
 
