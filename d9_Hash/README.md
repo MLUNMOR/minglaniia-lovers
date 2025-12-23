@@ -11,20 +11,23 @@ evitando estructuras enormes y permitiendo búsquedas rápidas si se necesitan.
 
 ¿Cómo lo hemos solucionado?
 
--Leemos todos los puntos del fichero input.txt.  
-    
+-Leemos todos los puntos del fichero input.txt.
+
 -Cada línea contiene una coordenada (x, y) que representa una baldosa roja.
 
--Guardamos todos los puntos en un vector.  
+-Antes de guardar un punto, comprobamos en la tabla hash si ya existe.
+Esto evita duplicados y mantiene el vector limpio.
+
+-Si el punto no está repetido, lo insertamos en la tabla hash y también en el vector.
+La tabla hash permite comprobar la existencia de un punto en O(1).
+
+-Guardamos todos los puntos únicos en un vector.
 Esto nos permite recorrerlos fácilmente y comparar todas las parejas posibles.
 
--Insertamos cada punto en una tabla hash.  
-La tabla hash almacena los puntos de forma eficiente y permite búsquedas rápidas si se necesitan.
-
--Recorremos todas las parejas de puntos del vector.  
+-Recorremos todas las parejas de puntos del vector.
 Cada pareja define dos vértices opuestos de un rectángulo.
 
--Si los puntos no están alineados (no comparten x ni y), calculamos el área.  
+-Si los puntos no están alineados (no comparten x ni y), calculamos el área.
 
 -Actualizamos el área máxima encontrada.
 
