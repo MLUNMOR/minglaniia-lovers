@@ -32,3 +32,10 @@ Cada pareja define dos vértices opuestos de un rectángulo.
 -Actualizamos el área máxima encontrada.
 
 -Mostramos el área del rectángulo más grande.
+
+Alternativas:
+
+En un principio se realizó para que el programa comprobara la existencia de los otros dos vértices, pero luego de la entrega parcial, nos dimos cuenta de que según el enunciado no era necesario comprobarlo. Así que esa parte del código ha quedado descartada.
+
+
+
