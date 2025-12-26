@@ -37,5 +37,8 @@ Alternativas:
 
 En un principio se realizó para que el programa comprobara la existencia de los otros dos vértices, pero luego de la entrega parcial, nos dimos cuenta de que según el enunciado no era necesario comprobarlo. Así que esa parte del código ha quedado descartada.
 
+Valoracion personal:
 
-
+Hemos reforzado el uso de tablas hash para gestionar datos sin duplicados de forma eficiente.
+También hemos aprendido la importancia de limpiar y estructurar bien la entrada antes de cualquier cálculo.
+En conjunto, este ejercicio nos ha ayudado a mejorar tanto la precisión como la organización del código.
