@@ -3,21 +3,21 @@
 // Función recursiva para crear el árbol.
 
 
-Nodo* ArbolInventario::construirRecursivo(const vector<Rango>& rangos, int start, int end) {
-    // Caso base: si el inicio es mayor que el fin, no quedan elementos
-    if (start > end) {
-        return nullptr;
+void ArbolInventario::insertarRecursivo(Nodo*& nodo, const Rango& rango) {
+    // 1. Si el hueco está vacío, creamos el nodo aquí
+    if (nodo == nullptr) {
+        nodo = new Nodo(rango.inicio, rango.fin);
+        return;
     }
 
-    int mid = (start + end) / 2;
-    
-    Nodo* nodo = new Nodo(rangos[mid].inicio, rangos[mid].fin);
-
-    // Llamo a la función otra vez para rellenar izquierda y derecha
-    nodo->izquierda = construirRecursivo(rangos, start, mid - 1);
-    nodo->derecha = construirRecursivo(rangos, mid + 1, end);
-
-    return nodo;
+    // 2. Si es menor, bajamos por la izquierda
+    if (rango.inicio < nodo->inicio) {
+        insertarRecursivo(nodo->izquierda, rango);
+    } 
+    // 3. Si es mayor (o igual), bajamos por la derecha
+    else {
+        insertarRecursivo(nodo->derecha, rango);
+    }
 }
 
 bool ArbolInventario::buscarRecursivo(Nodo* nodo, long long valor) { 
@@ -57,13 +57,9 @@ ArbolInventario::~ArbolInventario() {
     liberarMemoria(raiz);
 }
 
-// Función para crear el árbol desde fuera
-void ArbolInventario::construir(const vector<Rango>& rangos) {
-    // Por si acaso llamo a construir dos veces, limpio lo anterior
-    liberarMemoria(raiz);
-    if (!rangos.empty()) {
-        raiz = construirRecursivo(rangos, 0, (int)rangos.size() - 1);
-    }
+// Función para llamar a la recursiva
+void ArbolInventario::insertar(const Rango& rango) {
+    insertarRecursivo(raiz, rango);
 }
 
 // Función pública para preguntar si es fresco

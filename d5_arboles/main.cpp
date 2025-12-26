@@ -49,7 +49,9 @@ int main() {
 
     // 3. Crear el árbol con los datos limpios
     ArbolInventario inventario;
-    inventario.construir(rangosLimpios);
+    for (size_t i = 0; i < rangosLimpios.size(); i++) {
+        inventario.insertar(rangosLimpios[i]);
+    }
 
     // 4. Contar cuántos ingredientes son frescos
     int conteoFrescos = 0;

@@ -26,10 +26,8 @@ class ArbolInventario {
 private:
     Nodo* raiz;
 
-    // Función recursiva para crear el árbol.
-    // Cojo el elemento del medio (mid) para que el arbol quede equilibrado.
-    Nodo* construirRecursivo(const vector<Rango>& rangos, int start, int end);
-    
+    // Función recursiva de inserción
+    void insertarRecursivo(Nodo*& nodo, const Rango& rango);    
     // Busca si el valor está en algún nodo del árbol
     bool buscarRecursivo(Nodo* nodo, long long valor);
 
@@ -43,9 +41,8 @@ public:
     // Destructor. Para borrar la memoria de "new"
     ~ArbolInventario();
 
-    // Función para crear el árbol desde fuera
-    void construir(const vector<Rango>& rangos);
-
+    //función para insertar UN solo elemento
+    void insertar(const Rango& rango);
     // Función pública para preguntar si es fresco
     bool esIngredienteFresco(long long id);
 };
